@@ -4,6 +4,8 @@ import com.example.demo.tools.XMLHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/per")
 public class PerconController {
@@ -25,6 +27,17 @@ public class PerconController {
     public String findone(){
         PersonExtend pe = personRepository.getOne(333L);
         return pe.toString();
+    }
+
+    /*跳转路径如： http://localhost:9090/per/getxmldemo?id=333*/
+    @RequestMapping("/getxmldemo")
+    public String getxmldemo(String id){
+        List<String> list = personRepository.getxmldemo(Long.parseLong(id));
+        StringBuffer sb = new StringBuffer();
+        for(String s : list){
+            sb.append(s).append("   ");
+        }
+        return sb.toString();
     }
 
     @RequestMapping("/findonebyid")

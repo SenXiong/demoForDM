@@ -72,6 +72,6 @@ public class PersonExtend {
 
     @Override
     public String toString()  {
-        return this.getPsnCode()+"   "+this.getUpdatePsnCode() + "   " + XMLHelper.parseDoc(this.getPsnXml()).asXML();
+        return this.getPsnCode()+"   "+this.getUpdatePsnCode() + "   " + XMLHelper.parseDoc(this.getPsnXml()).asXML();  //这里xml的格式直接return到页面的话，<xml>这种标签格式会被编码拦截，可打断点或直接输出console查看。
     }
 }
