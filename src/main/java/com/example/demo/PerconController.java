@@ -25,11 +25,17 @@ public class PerconController {
 
     @RequestMapping("/findone")
     public String findone(){
-        PersonExtend pe = personRepository.getOne(333L);
+        PersonExtend pe = personRepository.getOne(444L);
         return pe.toString();
     }
 
-    /*跳转路径如： http://localhost:9090/per/getxmldemo?id=333*/
+    /**
+     * 展示数据层对xml的解析   xmltable,extractvalue等
+     * 跳转路径如： http://localhost:9090/per/getxmldemo?id=444
+     * @param id
+     * @return
+     */
+
     @RequestMapping("/getxmldemo")
     public String getxmldemo(String id){
         List<String> list = personRepository.getxmldemo(Long.parseLong(id));
@@ -40,16 +46,33 @@ public class PerconController {
         return sb.toString();
     }
 
+    /**
+     *   展示java层对xml的解析
+     *   跳转路径如：http://localhost:9090/per/findonebyid?id=444
+     * @param id
+     * @return
+     */
     @RequestMapping("/findonebyid")
     public String findonebyid(String id){
         PersonExtend pe = personRepository.getOne(Long.parseLong(id));
-        return pe.toString();
+        String info = XMLHelper.parseDoc(pe.getPsnXml()).asXML();
+        StringBuffer sb = new StringBuffer();
+        sb.append("姓名：").append(XMLHelper.getNodeValueFromXML(info,"data/basic_info/zh_name")).append("<br/>");
+        sb.append("单位：").append(XMLHelper.getNodeValueFromXML(info,"data/basic_info/org_name")).append("<br/>");
+        sb.append("学历：").append(XMLHelper.getNodeValueFromXML(info,"data/basic_info/educate_name")).append("<br/>");
+
+        return sb.toString();
     }
 
-    /*跳转路径如：http://localhost:9090/per/findonepro?path=data/basic_info/zh_name   */
+
+    /**
+     * 跳转路径如：http://localhost:9090/per/findonebyid?path=data/basic_info/zh_name
+     * @param path
+     * @return
+     */
     @RequestMapping("/findonepro")
     public String findonepro(String path){
-        PersonExtend pe = personRepository.getOne(333L);
+        PersonExtend pe = personRepository.getOne(444L);
         return XMLHelper.getNodeValueFromXML(XMLHelper.parseDoc(pe.getPsnXml()).asXML(),path);
     }
 
