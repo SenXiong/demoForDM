@@ -64,7 +64,6 @@ public class PerconController {
         return sb.toString();
     }
 
-
     /**
      * 跳转路径如：http://localhost:9090/per/findonebyid?path=data/basic_info/zh_name
      * @param path
