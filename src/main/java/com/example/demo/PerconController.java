@@ -86,4 +86,15 @@ public class PerconController {
         return "test";
     }
 
+    @RequestMapping("/testaop1")
+    public String testaop1(String id){
+        return "testaop1";
+    }
+
+    @MyAnnotation
+    @RequestMapping("/testaop2")
+    public String testaop2(String id){
+        return "testaop2";
+    }
+
 }
